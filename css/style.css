@@ -271,7 +271,21 @@ a {
   background: transparent;
   box-shadow: none;
   color: var(--ink-soft);
-  transition: color 0.2s ease, transform 0.2s ease;
+  position: relative;
+  transition: color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.15rem;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blue-400), var(--blue-600));
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .nav-link:hover {
@@ -279,6 +293,11 @@ a {
   box-shadow: none;
   background: transparent;
   color: var(--blue-600);
+}
+
+.nav-link:hover::after,
+.nav-link.is-active::after {
+  transform: scaleX(1);
 }
 
 .nav-link.is-active {
@@ -1010,13 +1029,211 @@ a {
 
 .reveal {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(28px);
   transition:
-    opacity 0.55s ease,
-    transform 0.55s ease;
+    opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* —— 页面切换（PPT 溶解） —— */
+.page-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.page-transition.is-active {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.page-transition__veil {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: linear-gradient(165deg, #f7fbff 0%, #eaf4ff 45%, #dceeff 100%);
+  transition: opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.page-transition__veil::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.18;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+  mix-blend-mode: soft-light;
+}
+
+.page-transition.is-in .page-transition__veil {
+  opacity: 1;
+  transition-duration: 0.5s;
+}
+
+.page-transition.is-out .page-transition__veil {
+  opacity: 0;
+  transition-duration: 0.65s;
+}
+
+body:not(.is-ready) .site-header,
+body:not(.is-ready) .home-top-nav,
+body:not(.is-ready) main,
+body:not(.is-ready) .site-footer {
+  opacity: 0;
+}
+
+body.is-ready .site-header,
+body.is-ready .home-top-nav,
+body.is-ready main,
+body.is-ready .site-footer {
+  animation: dissolve-in 0.75s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+body.is-ready .site-header,
+body.is-ready .home-top-nav {
+  animation-delay: 0.04s;
+}
+
+body.is-ready main {
+  animation-delay: 0.1s;
+}
+
+body.is-ready .site-footer {
+  animation-delay: 0.16s;
+}
+
+body.is-leaving .site-header,
+body.is-leaving .home-top-nav,
+body.is-leaving main,
+body.is-leaving .site-footer {
+  opacity: 0;
+  filter: blur(1.5px);
+  transition:
+    opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    filter 0.45s ease;
+}
+
+@keyframes dissolve-in {
+  from {
+    opacity: 0;
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-transition {
+    display: none !important;
+  }
+
+  body:not(.is-ready) .site-header,
+  body:not(.is-ready) .home-top-nav,
+  body:not(.is-ready) main,
+  body:not(.is-ready) .site-footer,
+  body.is-ready .site-header,
+  body.is-ready .home-top-nav,
+  body.is-ready main,
+  body.is-ready .site-footer,
+  body.is-leaving .site-header,
+  body.is-leaving .home-top-nav,
+  body.is-leaving main,
+  body.is-leaving .site-footer {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* —— 主页光标特效 —— */
+body.has-cursor-fx,
+body.has-cursor-fx * {
+  cursor: none !important;
+}
+
+.cursor-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9998;
+}
+
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform;
+}
+
+.cursor-dot {
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow:
+    0 0 6px rgba(59, 142, 239, 0.9),
+    0 0 12px rgba(42, 111, 212, 0.45);
+}
+
+.cursor-ring {
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(59, 142, 239, 0.85);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 14px rgba(42, 111, 212, 0.3);
+  transition:
+    width 0.2s ease,
+    height 0.2s ease,
+    margin 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.cursor-ring.is-hover {
+  width: 44px;
+  height: 44px;
+  margin: -22px 0 0 -22px;
+  background: rgba(91, 168, 245, 0.18);
+  border-color: rgba(42, 111, 212, 0.95);
+}
+
+.cursor-ring.is-click {
+  width: 22px;
+  height: 22px;
+  margin: -11px 0 0 -11px;
+  background: rgba(168, 212, 255, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.has-cursor-fx,
+  body.has-cursor-fx * {
+    cursor: auto !important;
+  }
+
+  .cursor-canvas,
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
+}
+

@@ -32,7 +32,7 @@
       { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
     );
     reveals.forEach((el, i) => {
-      el.style.transitionDelay = `${Math.min(i * 0.06, 0.3)}s`;
+      el.style.transitionDelay = `${Math.min(0.08 + i * 0.08, 0.55)}s`;
       io.observe(el);
     });
   } else {
