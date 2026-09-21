@@ -53,7 +53,7 @@
 
     const updateNav = () => {
       const scrollY = window.scrollY;
-      const heroSection = document.getElementById("sectionHero");
+      const heroSection = document.getElementById("home");
       const heroHeight = heroSection ? heroSection.offsetHeight : window.innerHeight;
       
       if (scrollY > heroHeight * 0.6) {
@@ -76,9 +76,9 @@
   const scrollHint = document.querySelector(".section-hero .scroll-hint");
   if (scrollHint) {
     scrollHint.addEventListener("click", () => {
-      const worksSection = document.getElementById("sectionWorks");
-      if (worksSection) {
-        worksSection.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth" });
+      const nextSection = document.getElementById("arknights");
+      if (nextSection) {
+        nextSection.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth" });
       }
     });
     scrollHint.style.cursor = "pointer";
@@ -86,27 +86,96 @@
 
   if (isHomePage) {
     const sections = document.querySelectorAll(".landing-section");
+    const navLinks = document.querySelectorAll(".home-top-nav .nav-link");
+    
+    const sectionIds = ["home", "arknights", "endfield", "wuthering", "others"];
+    
+    navLinks.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        const href = link.getAttribute("href");
+        if (href && href.startsWith("#")) {
+          e.preventDefault();
+          const targetId = href.slice(1);
+          const targetSection = document.getElementById(targetId);
+          if (targetSection) {
+            targetSection.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth" });
+          }
+        }
+      });
+    });
+
+    let navTicking = false;
+    const updateActiveNav = () => {
+      const viewportHeight = window.innerHeight;
+      let activeId = "home";
+      
+      sectionIds.forEach((id) => {
+        const section = document.getElementById(id);
+        if (section) {
+          const rect = section.getBoundingClientRect();
+          if (rect.top <= viewportHeight * 0.4 && rect.bottom > viewportHeight * 0.4) {
+            activeId = id;
+          }
+        }
+      });
+      
+      navLinks.forEach((link) => {
+        const linkSection = link.getAttribute("data-section") || link.getAttribute("href")?.slice(1);
+        if (linkSection === activeId) {
+          link.classList.add("is-active");
+        } else {
+          link.classList.remove("is-active");
+        }
+      });
+      
+      navTicking = false;
+    };
+
+    window.addEventListener("scroll", () => {
+      if (!navTicking) {
+        requestAnimationFrame(updateActiveNav);
+        navTicking = true;
+      }
+    }, { passive: true });
+
+    updateActiveNav();
+
+    if (window.location.hash) {
+      const targetId = window.location.hash.slice(1);
+      const targetSection = document.getElementById(targetId);
+      if (targetSection) {
+        setTimeout(() => {
+          targetSection.scrollIntoView({ behavior: "auto" });
+        }, 100);
+      }
+    }
+
     if (sections.length > 1) {
       const progressContainer = document.createElement("nav");
       progressContainer.className = "scroll-progress";
       progressContainer.setAttribute("aria-label", "页面导航");
       
       const sectionLabels = {
-        "sectionHero": "Hero",
-        "sectionWorks": "Works",
-        "sectionExplore": "Explore",
-        "sectionContact": "Contact"
+        "home": "主页",
+        "arknights": "明日方舟",
+        "endfield": "终末地",
+        "wuthering": "鸣潮",
+        "others": "其他"
       };
       
-      sections.forEach((section, index) => {
-        const dot = document.createElement("button");
-        dot.className = "scroll-progress-dot";
-        dot.setAttribute("data-label", sectionLabels[section.id] || `Section ${index + 1}`);
-        dot.setAttribute("aria-label", `跳转到 ${sectionLabels[section.id] || `区块 ${index + 1}`}`);
-        dot.addEventListener("click", () => {
-          section.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth" });
-        });
-        progressContainer.appendChild(dot);
+      sectionIds.forEach((id) => {
+        const section = document.getElementById(id);
+        if (section) {
+          const dot = document.createElement("button");
+          dot.className = "scroll-progress-dot";
+          dot.setAttribute("data-section", id);
+          dot.setAttribute("data-label", sectionLabels[id] || id);
+          dot.setAttribute("aria-label", `跳转到 ${sectionLabels[id] || id}`);
+          dot.addEventListener("click", () => {
+            section.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth" });
+          });
+          progressContainer.appendChild(dot);
+        }
       });
       
       document.body.appendChild(progressContainer);
@@ -123,16 +192,20 @@
           progressContainer.classList.remove("is-visible");
         }
         
-        let activeIndex = 0;
-        sections.forEach((section, index) => {
-          const rect = section.getBoundingClientRect();
-          if (rect.top <= viewportHeight * 0.5 && rect.bottom > viewportHeight * 0.3) {
-            activeIndex = index;
+        let activeId = "home";
+        sectionIds.forEach((id) => {
+          const section = document.getElementById(id);
+          if (section) {
+            const rect = section.getBoundingClientRect();
+            if (rect.top <= viewportHeight * 0.5 && rect.bottom > viewportHeight * 0.3) {
+              activeId = id;
+            }
           }
         });
         
-        dots.forEach((dot, index) => {
-          dot.classList.toggle("is-active", index === activeIndex);
+        dots.forEach((dot) => {
+          const dotSection = dot.getAttribute("data-section");
+          dot.classList.toggle("is-active", dotSection === activeId);
         });
         
         progressTicking = false;

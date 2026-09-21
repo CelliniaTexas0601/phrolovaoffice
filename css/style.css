@@ -2235,6 +2235,50 @@ body.has-cursor-fx, body.has-cursor-fx * { cursor: none !important; }
 }
 
 /* ══════════════════════════════════════════════════════════════════════════════
+   Section: Construction — 施工中全屏区块
+   ══════════════════════════════════════════════════════════════════════════════ */
+.section-construction {
+  background: linear-gradient(180deg, 
+    var(--bg-void) 0%, 
+    var(--bg-deep) 30%,
+    var(--bg-base) 70%,
+    var(--bg-void) 100%
+  );
+  padding: clamp(4rem, 10vh, 8rem) 0;
+  padding-top: calc(var(--nav-h) + clamp(2rem, 5vh, 4rem));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-construction .construction-content {
+  animation: none;
+}
+
+.section-construction .construction-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 2rem;
+}
+
+.section-construction .construction-title-en {
+  font-size: clamp(1.8rem, 6vw, 3rem);
+}
+
+.section-construction .construction-title-cn {
+  font-size: clamp(1.1rem, 3vw, 1.4rem);
+  margin-bottom: 1.5rem;
+}
+
+.section-construction .construction-page-name {
+  margin-bottom: 1rem;
+}
+
+.section-construction .construction-desc {
+  margin-bottom: 0;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
    Footer — 增强版
    ══════════════════════════════════════════════════════════════════════════════ */
 .page-home .site-footer {
@@ -2272,6 +2316,31 @@ body.has-cursor-fx, body.has-cursor-fx * { cursor: none !important; }
   letter-spacing: 0.15em;
   color: var(--gold-primary);
   opacity: 0.8;
+}
+
+.footer-contact {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.footer-contact-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.footer-contact-link:hover {
+  border-color: var(--border-gold);
+  color: var(--gold-primary);
+  background: var(--gold-subtle);
 }
 
 .footer-copy {
