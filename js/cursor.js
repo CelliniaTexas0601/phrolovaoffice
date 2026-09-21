@@ -23,7 +23,7 @@
   const mouse = { x: -999, y: -999, tx: -999, ty: -999 };
   const ringPos = { x: -999, y: -999 };
   const points = [];
-  const MAX_POINTS = 24;
+  const MAX_POINTS = 22;
   const ripples = [];
   let width = 0;
   let height = 0;
@@ -67,14 +67,14 @@
   function drawTrail() {
     if (points.length < 2) return;
 
-    // 外层气动光晕
+    // 外层柔光 - 冰蓝
     ctx.beginPath();
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
-    ctx.strokeStyle = "rgba(0, 200, 220, 0.25)";
-    ctx.lineWidth = 5;
-    ctx.shadowBlur = 15;
-    ctx.shadowColor = "rgba(0, 200, 220, 0.4)";
+    ctx.strokeStyle = "rgba(91, 200, 219, 0.2)";
+    ctx.lineWidth = 6;
+    ctx.shadowBlur = 18;
+    ctx.shadowColor = "rgba(91, 200, 219, 0.35)";
 
     for (let i = 0; i < points.length; i++) {
       const p = points[i];
@@ -83,27 +83,27 @@
     }
     ctx.stroke();
 
-    // 主线 - 剑光效果
+    // 主线 - 渐变飘带效果
     for (let i = 1; i < points.length; i++) {
       const prev = points[i - 1];
       const curr = points[i];
       const t = i / (points.length - 1);
-      const alpha = Math.min(prev.life, curr.life) * (0.3 + t * 0.7);
+      const alpha = Math.min(prev.life, curr.life) * (0.25 + t * 0.75);
 
       ctx.beginPath();
       ctx.lineCap = "round";
-      ctx.strokeStyle = `rgba(61, 217, 235, ${alpha})`;
-      ctx.lineWidth = 1 + t * 1.5;
-      ctx.shadowBlur = 10;
-      ctx.shadowColor = `rgba(0, 200, 220, ${alpha * 0.8})`;
+      ctx.strokeStyle = `rgba(138, 216, 232, ${alpha})`;
+      ctx.lineWidth = 1 + t * 1.8;
+      ctx.shadowBlur = 12;
+      ctx.shadowColor = `rgba(91, 200, 219, ${alpha * 0.7})`;
       ctx.moveTo(prev.x, prev.y);
       ctx.lineTo(curr.x, curr.y);
       ctx.stroke();
 
-      // 核心亮线 - 月白色
+      // 核心亮线 - 霜白
       ctx.beginPath();
-      ctx.strokeStyle = `rgba(240, 245, 248, ${alpha * 0.7})`;
-      ctx.lineWidth = 0.5 + t * 0.5;
+      ctx.strokeStyle = `rgba(255, 255, 255, ${alpha * 0.65})`;
+      ctx.lineWidth = 0.4 + t * 0.6;
       ctx.shadowBlur = 0;
       ctx.moveTo(prev.x, prev.y);
       ctx.lineTo(curr.x, curr.y);
@@ -112,8 +112,8 @@
   }
 
   function tick() {
-    ringPos.x += (mouse.tx - ringPos.x) * 0.16;
-    ringPos.y += (mouse.ty - ringPos.y) * 0.16;
+    ringPos.x += (mouse.tx - ringPos.x) * 0.14;
+    ringPos.y += (mouse.ty - ringPos.y) * 0.14;
 
     dot.style.transform = `translate3d(${mouse.x}px, ${mouse.y}px, 0)`;
     ring.style.transform = `translate3d(${ringPos.x}px, ${ringPos.y}px, 0)`;
@@ -122,26 +122,26 @@
     ctx.shadowBlur = 0;
 
     for (let i = points.length - 1; i >= 0; i--) {
-      points[i].life -= 0.032;
+      points[i].life -= 0.035;
       if (points[i].life <= 0) points.splice(i, 1);
     }
 
     drawTrail();
 
-    // 点击涟漪 - 气动波纹
+    // 点击涟漪 - 冰蓝波纹
     for (let i = ripples.length - 1; i >= 0; i--) {
       const r = ripples[i];
-      r.r += 2.2;
-      r.life -= 0.038;
+      r.r += 2.5;
+      r.life -= 0.035;
       if (r.life <= 0) {
         ripples.splice(i, 1);
         continue;
       }
       ctx.beginPath();
-      ctx.strokeStyle = `rgba(61, 217, 235, ${r.life * 0.6})`;
-      ctx.lineWidth = 1.5;
-      ctx.shadowBlur = 12;
-      ctx.shadowColor = `rgba(0, 200, 220, ${r.life * 0.4})`;
+      ctx.strokeStyle = `rgba(138, 216, 232, ${r.life * 0.5})`;
+      ctx.lineWidth = 1.2;
+      ctx.shadowBlur = 15;
+      ctx.shadowColor = `rgba(91, 200, 219, ${r.life * 0.35})`;
       ctx.arc(r.x, r.y, r.r, 0, Math.PI * 2);
       ctx.stroke();
     }
