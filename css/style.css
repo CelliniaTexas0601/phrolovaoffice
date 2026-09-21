@@ -1506,3 +1506,30 @@ body.has-cursor-fx, body.has-cursor-fx * { cursor: none !important; }
   .cursor-canvas, .cursor-dot, .cursor-ring, .cursor-sword-core { display: none !important; }
   body.has-cursor-fx, body.has-cursor-fx * { cursor: auto !important; }
 }
+/* 作品卡预览按钮 */
+.preview-link {
+  display: inline-block;
+  margin-top: 0.75rem;
+  padding: 0.4rem 1rem;
+  font-family: "Rajdhani", "Noto Sans SC", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-indent: 0.22em;
+  color: #8ad8e8;
+  border: 1px solid rgba(212, 196, 160, 0.7);
+  border-radius: 2px;
+  background: linear-gradient(180deg, rgba(91, 200, 219, 0.1), rgba(13, 26, 36, 0.4));
+  box-shadow:
+    inset 0 0 0 1px rgba(91, 200, 219, 0.12),
+    0 0 0 1px rgba(13, 26, 36, 0.35);
+  transition: color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+.work-item:hover .preview-link {
+  color: #f8fbfc;
+  border-color: #d4c4a0;
+  box-shadow:
+    0 0 14px rgba(91, 200, 219, 0.28),
+    inset 0 0 0 1px rgba(212, 196, 160, 0.4);
+  background: linear-gradient(180deg, rgba(91, 200, 219, 0.2), rgba(13, 26, 36, 0.5));
+}
