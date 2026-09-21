@@ -138,30 +138,35 @@ a { color: inherit; text-decoration: none; }
   inset: 0;
   background-image: url('../figure/qingxiao-banner.jpeg');
   background-size: cover;
-  background-position: center 40%;
+  background-position: center 30%;
   background-attachment: fixed;
   background-repeat: no-repeat;
-  opacity: 0.35;
-  filter: saturate(0.8);
+  opacity: 0.45;
+  filter: saturate(0.85);
   pointer-events: none;
 }
 
-/* 深色电影级遮罩 */
+/* 深色电影级遮罩 — 上亮下暗渐变 */
 .page-bg::after {
   content: "";
   position: absolute;
   inset: 0;
   background: 
-    /* 顶部深色渐变 */
-    linear-gradient(180deg, rgba(5,8,10,0.9) 0%, rgba(5,8,10,0.5) 20%, transparent 40%),
-    /* 底部深色渐变 */
-    linear-gradient(0deg, rgba(5,8,10,0.95) 0%, rgba(5,8,10,0.6) 25%, transparent 50%),
-    /* 左侧深色(文字区) */
-    linear-gradient(90deg, rgba(5,8,10,0.75) 0%, rgba(5,8,10,0.4) 30%, transparent 60%),
-    /* 边缘暗角 */
-    radial-gradient(ellipse 100% 80% at 50% 50%, transparent 20%, rgba(5,8,10,0.7) 80%),
-    /* 整体暗色基底 */
-    rgba(5, 8, 10, 0.55);
+    /* 主垂直渐变: 顶部透明 → 底部深色 (让面部清晰可见) */
+    linear-gradient(180deg, 
+      rgba(5,8,10,0.05) 0%,      /* 顶部几乎透明 */
+      rgba(5,8,10,0.15) 15%,     /* 上部轻微遮罩 */
+      rgba(5,8,10,0.35) 35%,     /* 中上部渐暗 */
+      rgba(5,8,10,0.6) 55%,      /* 中部过渡 */
+      rgba(5,8,10,0.85) 75%,     /* 中下部较暗 */
+      rgba(5,8,10,0.95) 100%     /* 底部最暗 */
+    ),
+    /* 左侧文字区域适度加深 */
+    linear-gradient(90deg, rgba(5,8,10,0.4) 0%, rgba(5,8,10,0.2) 25%, transparent 50%),
+    /* 底部边缘强化暗角 (保护 footer 文字) */
+    linear-gradient(0deg, rgba(5,8,10,0.5) 0%, transparent 20%),
+    /* 柔和暗角收边 */
+    radial-gradient(ellipse 120% 100% at 50% 100%, rgba(5,8,10,0.6) 0%, transparent 60%);
   pointer-events: none;
 }
 
