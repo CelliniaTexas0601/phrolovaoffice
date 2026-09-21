@@ -1212,7 +1212,7 @@ body.is-leaving .site-footer {
 }
 
 /* ──────────────────────────────────────────────────────────────────────────────
-   光标特效
+   光标特效 — 清宵仙侠剑客美学
    ────────────────────────────────────────────────────────────────────────────── */
 body.has-cursor-fx, body.has-cursor-fx * { cursor: none !important; }
 
@@ -1225,7 +1225,7 @@ body.has-cursor-fx, body.has-cursor-fx * { cursor: none !important; }
   z-index: 9998;
 }
 
-.cursor-dot, .cursor-ring {
+.cursor-dot, .cursor-ring, .cursor-sword-core {
   position: fixed;
   top: 0;
   left: 0;
@@ -1234,39 +1234,183 @@ body.has-cursor-fx, body.has-cursor-fx * { cursor: none !important; }
   will-change: transform;
 }
 
+/* 中心光点 — 冰蓝内核 */
 .cursor-dot {
-  width: 4px;
-  height: 4px;
-  margin: -2px 0 0 -2px;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
   border-radius: 50%;
-  background: var(--gold-primary);
-  box-shadow: 0 0 10px var(--gold-glow);
+  background: radial-gradient(circle, 
+    rgba(200, 235, 242, 1) 0%, 
+    rgba(91, 196, 212, 0.9) 40%, 
+    rgba(58, 180, 196, 0.6) 70%, 
+    transparent 100%
+  );
+  box-shadow: 
+    0 0 8px rgba(91, 196, 212, 0.8),
+    0 0 20px rgba(91, 196, 212, 0.4),
+    0 0 40px rgba(91, 196, 212, 0.2);
+  transition: transform 0.15s ease-out, box-shadow 0.2s;
 }
 
-.cursor-ring {
-  width: 32px;
-  height: 32px;
-  margin: -16px 0 0 -16px;
-  border-radius: 50%;
-  border: 1px solid var(--gold-primary);
-  background: transparent;
-  opacity: 0.6;
-  transition: width 0.25s, height 0.25s, margin 0.25s, background 0.25s, opacity 0.25s;
+.cursor-dot.is-hover {
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  box-shadow: 
+    0 0 12px rgba(212, 192, 136, 0.9),
+    0 0 25px rgba(212, 192, 136, 0.5),
+    0 0 50px rgba(91, 196, 212, 0.3);
+  background: radial-gradient(circle, 
+    rgba(255, 255, 255, 1) 0%, 
+    rgba(212, 192, 136, 0.9) 40%, 
+    rgba(91, 196, 212, 0.5) 80%, 
+    transparent 100%
+  );
 }
 
-.cursor-ring.is-hover {
-  width: 50px;
-  height: 50px;
-  margin: -25px 0 0 -25px;
-  background: rgba(212, 192, 136, 0.08);
+/* 剑光内核 — 点击时闪烁 */
+.cursor-sword-core {
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+
+.cursor-sword-core::before,
+.cursor-sword-core::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(200, 235, 242, 0.8) 20%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(200, 235, 242, 0.8) 80%,
+    transparent 100%
+  );
+}
+
+.cursor-sword-core::before {
+  width: 30px;
+  height: 2px;
+  transform: translate(-50%, -50%);
+}
+
+.cursor-sword-core::after {
+  width: 2px;
+  height: 30px;
+  transform: translate(-50%, -50%);
+}
+
+.cursor-sword-core.is-flash {
   opacity: 1;
+  animation: swordFlash 0.2s ease-out forwards;
 }
 
+@keyframes swordFlash {
+  0% {
+    opacity: 1;
+    transform: translate3d(var(--x, 0), var(--y, 0), 0) scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: translate3d(var(--x, 0), var(--y, 0), 0) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--x, 0), var(--y, 0), 0) scale(1.5);
+  }
+}
+
+/* 外环 — 气动能量场 */
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  border-radius: 50%;
+  border: 1px solid rgba(91, 196, 212, 0.5);
+  background: transparent;
+  opacity: 0.7;
+  transition: 
+    width 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+    height 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+    margin 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+    border-color 0.25s,
+    background 0.25s, 
+    opacity 0.25s,
+    box-shadow 0.25s;
+  box-shadow: 
+    0 0 10px rgba(91, 196, 212, 0.2),
+    inset 0 0 10px rgba(91, 196, 212, 0.05);
+}
+
+/* 悬停状态 — 金色能量激活 */
+.cursor-ring.is-hover {
+  width: 52px;
+  height: 52px;
+  margin: -26px 0 0 -26px;
+  border-color: rgba(212, 192, 136, 0.7);
+  background: radial-gradient(circle, 
+    rgba(212, 192, 136, 0.08) 0%, 
+    rgba(91, 196, 212, 0.04) 50%,
+    transparent 70%
+  );
+  opacity: 1;
+  box-shadow: 
+    0 0 15px rgba(212, 192, 136, 0.3),
+    0 0 30px rgba(91, 196, 212, 0.15),
+    inset 0 0 15px rgba(212, 192, 136, 0.1);
+  animation: hoverPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes hoverPulse {
+  0%, 100% { 
+    box-shadow: 
+      0 0 15px rgba(212, 192, 136, 0.3),
+      0 0 30px rgba(91, 196, 212, 0.15),
+      inset 0 0 15px rgba(212, 192, 136, 0.1);
+  }
+  50% { 
+    box-shadow: 
+      0 0 20px rgba(212, 192, 136, 0.5),
+      0 0 40px rgba(91, 196, 212, 0.25),
+      inset 0 0 20px rgba(212, 192, 136, 0.15);
+  }
+}
+
+/* 点击状态 — 剑光收缩 */
 .cursor-ring.is-click {
-  width: 20px;
-  height: 20px;
-  margin: -10px 0 0 -10px;
-  background: var(--gold-glow);
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border-color: rgba(200, 235, 242, 0.9);
+  background: radial-gradient(circle, 
+    rgba(255, 255, 255, 0.4) 0%, 
+    rgba(91, 196, 212, 0.3) 50%,
+    transparent 70%
+  );
+  box-shadow: 
+    0 0 20px rgba(91, 196, 212, 0.6),
+    0 0 40px rgba(200, 235, 242, 0.3);
+  animation: clickBurst 0.35s ease-out forwards;
+}
+
+@keyframes clickBurst {
+  0% {
+    transform: translate3d(var(--x, 0), var(--y, 0), 0) scale(0.6);
+    opacity: 1;
+  }
+  50% {
+    transform: translate3d(var(--x, 0), var(--y, 0), 0) scale(1.3);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate3d(var(--x, 0), var(--y, 0), 0) scale(1);
+    opacity: 0.7;
+  }
 }
 
 /* ──────────────────────────────────────────────────────────────────────────────
@@ -1359,6 +1503,6 @@ body.has-cursor-fx, body.has-cursor-fx * { cursor: none !important; }
     transform: none !important;
   }
 
-  .cursor-canvas, .cursor-dot, .cursor-ring { display: none !important; }
+  .cursor-canvas, .cursor-dot, .cursor-ring, .cursor-sword-core { display: none !important; }
   body.has-cursor-fx, body.has-cursor-fx * { cursor: auto !important; }
 }
