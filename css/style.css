@@ -1649,7 +1649,7 @@ body.has-cursor-fx, body.has-cursor-fx * { cursor: none !important; }
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: calc(var(--nav-h) + 2rem) clamp(2rem, 8vw, 6rem) 4rem;
+  padding: calc(var(--nav-h) + 2rem) clamp(1.5rem, 4vw, 3rem) 4rem clamp(2rem, 6vw, 5rem);
   scroll-snap-align: start;
 }
 
@@ -1765,7 +1765,9 @@ body.has-cursor-fx, body.has-cursor-fx * { cursor: none !important; }
 .section-hero .hero-content {
   position: relative;
   z-index: 3;
-  max-width: 650px;
+  max-width: 550px;
+  margin-right: auto;
+  margin-left: 0;
   animation: rise-in 1.2s var(--ease-out-expo) both;
 }
 
@@ -2404,7 +2406,11 @@ body.has-cursor-fx, body.has-cursor-fx * { cursor: none !important; }
   
   .hero-decor { display: none; }
   
-  .section-hero .hero-content { max-width: 100%; }
+  .section-hero .hero-content { 
+    max-width: 100%; 
+    margin-left: 0;
+    margin-right: 0;
+  }
   
   .section-hero .scroll-hint { display: none; }
   
