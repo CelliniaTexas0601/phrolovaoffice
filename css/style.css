@@ -1469,3 +1469,279 @@ body.has-cursor-fx * {
   background: var(--bg-glass); 
   backdrop-filter: blur(16px);
 }
+
+/* ──────────────────────────────────────────────────────────────────────────────
+   Hero 背景横幅
+   ────────────────────────────────────────────────────────────────────────────── */
+.hero-banner-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  overflow: hidden;
+}
+
+.hero-banner-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  opacity: 0.15;
+  filter: blur(2px) saturate(0.8);
+  animation: banner-breathe 20s ease-in-out infinite;
+}
+
+@keyframes banner-breathe {
+  0%, 100% { 
+    transform: scale(1.02);
+    opacity: 0.12;
+  }
+  50% { 
+    transform: scale(1.05);
+    opacity: 0.18;
+  }
+}
+
+/* 横幅渐变遮罩 */
+.hero-banner-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: 
+    linear-gradient(180deg, 
+      var(--bg-void) 0%,
+      rgba(10, 17, 24, 0.7) 30%,
+      rgba(10, 17, 24, 0.5) 60%,
+      var(--bg-void) 100%
+    ),
+    radial-gradient(ellipse 80% 50% at 20% 50%, rgba(10, 17, 24, 0.8) 0%, transparent 70%);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────────
+   Hero 角色立绘
+   ────────────────────────────────────────────────────────────────────────────── */
+.hero--with-character {
+  position: relative;
+}
+
+.hero-character {
+  position: absolute;
+  right: -5%;
+  bottom: 0;
+  width: min(55%, 600px);
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.hero-character-img {
+  width: 100%;
+  height: auto;
+  max-height: 95vh;
+  object-fit: contain;
+  object-position: bottom center;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 60px var(--ice-glow)) drop-shadow(0 0 120px rgba(91, 200, 219, 0.15));
+  animation: character-float 8s ease-in-out infinite;
+  mask-image: linear-gradient(to top, 
+    rgba(0,0,0,1) 0%, 
+    rgba(0,0,0,1) 70%, 
+    rgba(0,0,0,0.8) 85%,
+    rgba(0,0,0,0) 100%
+  );
+  -webkit-mask-image: linear-gradient(to top, 
+    rgba(0,0,0,1) 0%, 
+    rgba(0,0,0,1) 70%, 
+    rgba(0,0,0,0.8) 85%,
+    rgba(0,0,0,0) 100%
+  );
+}
+
+@keyframes character-float {
+  0%, 100% { 
+    transform: translateY(0);
+  }
+  50% { 
+    transform: translateY(-8px);
+  }
+}
+
+/* 角色光晕效果 */
+.hero-character::before {
+  content: "";
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 60%;
+  background: radial-gradient(ellipse, var(--ice-glow) 0%, transparent 60%);
+  filter: blur(60px);
+  opacity: 0.4;
+  animation: aura-pulse 6s ease-in-out infinite;
+}
+
+@keyframes aura-pulse {
+  0%, 100% { opacity: 0.3; transform: translateX(-50%) scale(1); }
+  50% { opacity: 0.5; transform: translateX(-50%) scale(1.1); }
+}
+
+/* Hero 内容层级调整 */
+.hero--with-character .hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+}
+
+.hero--with-character .home-contact {
+  z-index: 3;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────────
+   导航链接 - 低调状态（施工中页面）
+   ────────────────────────────────────────────────────────────────────────────── */
+.nav-link--muted {
+  opacity: 0.5;
+}
+
+.nav-link--muted:hover {
+  opacity: 0.75;
+}
+
+.nav-link--muted.is-active {
+  opacity: 0.7;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────────
+   施工中页面
+   ────────────────────────────────────────────────────────────────────────────── */
+.construction-page {
+  min-height: calc(100vh - var(--nav-h) - 80px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+}
+
+.construction-content {
+  text-align: center;
+  max-width: 480px;
+  animation: rise-in 0.8s var(--ease-out-expo) both;
+}
+
+.construction-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 2rem;
+  color: var(--ice-400);
+  animation: icon-rotate 20s linear infinite;
+}
+
+.construction-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes icon-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.construction-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--frost-white);
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 40px var(--ice-glow);
+}
+
+.construction-en {
+  font-family: var(--font-body);
+  font-size: clamp(0.75rem, 2vw, 0.9rem);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold-pale);
+  margin-bottom: 2rem;
+  opacity: 0.8;
+}
+
+.construction-subtitle {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 3vw, 1.25rem);
+  color: var(--ice-300);
+  margin-bottom: 1rem;
+  padding: 0.5rem 1.5rem;
+  background: var(--bg-glass-light);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-frost);
+  border-radius: var(--radius-sm);
+  display: inline-block;
+}
+
+.construction-desc {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 2.5rem;
+  line-height: 1.8;
+}
+
+.construction-btn {
+  margin-top: 1rem;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────────
+   响应式 - 角色立绘
+   ────────────────────────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .hero-character {
+    right: -10%;
+    width: min(50%, 450px);
+    opacity: 0.7;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-banner-bg img {
+    opacity: 0.1;
+  }
+
+  .hero-character {
+    position: absolute;
+    right: 50%;
+    transform: translateX(50%);
+    width: 90%;
+    max-width: 350px;
+    height: auto;
+    bottom: auto;
+    top: 0;
+    opacity: 0.25;
+    z-index: 0;
+  }
+
+  .hero-character-img {
+    max-height: 60vh;
+    mask-image: linear-gradient(to bottom, 
+      rgba(0,0,0,0.6) 0%, 
+      rgba(0,0,0,0.3) 50%,
+      rgba(0,0,0,0) 100%
+    );
+    -webkit-mask-image: linear-gradient(to bottom, 
+      rgba(0,0,0,0.6) 0%, 
+      rgba(0,0,0,0.3) 50%,
+      rgba(0,0,0,0) 100%
+    );
+  }
+
+  .hero-character::before {
+    display: none;
+  }
+
+  .hero--with-character .hero-content {
+    max-width: 100%;
+    padding-bottom: 14rem;
+  }
+}
