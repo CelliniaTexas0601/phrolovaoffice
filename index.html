@@ -18,12 +18,8 @@
       <span></span><span></span><span></span><span></span>
     </div>
 
-    <!-- Hero 背景横幅 -->
-    <div class="hero-banner-bg" aria-hidden="true">
-      <img src="figure/qingxiao-banner.jpeg" alt="" />
-    </div>
-
-    <header class="home-top-nav">
+    <!-- 固定顶部导航 -->
+    <header class="home-top-nav" id="mainNav">
       <nav class="nav" aria-label="主导航">
         <a class="nav-link is-active" href="index.html">主页</a>
         <a class="nav-link" href="arknights.html">明日方舟</a>
@@ -33,89 +29,249 @@
       </nav>
     </header>
 
-    <main>
-      <section class="hero hero--with-character" aria-label="首页主视觉">
-        <div class="hero-visual" aria-hidden="true"></div>
+    <main class="landing-main">
+      <!-- ═══════════════════════════════════════════════════════════════════════
+           Section 1 — Hero
+           ═══════════════════════════════════════════════════════════════════════ -->
+      <section class="landing-section section-hero" id="sectionHero" aria-label="首页主视觉">
+        <!-- 背景横幅 -->
+        <div class="section-hero-bg" aria-hidden="true">
+          <img src="figure/qingxiao-banner.jpeg" alt="" />
+        </div>
+        
+        <!-- 遮罩层 -->
+        <div class="section-hero-overlay" aria-hidden="true"></div>
+        
+        <!-- 装饰线条 -->
+        <div class="hero-decor" aria-hidden="true">
+          <span class="hero-decor-line hero-decor-line--left"></span>
+          <span class="hero-decor-line hero-decor-line--top"></span>
+        </div>
 
-        <!-- 清宵立绘 -->
+        <!-- 角色立绘 -->
         <div class="hero-character" aria-hidden="true">
           <img src="figure/qingxiao-portrait.webp" alt="清宵" class="hero-character-img" />
         </div>
 
+        <!-- 视觉光效 -->
+        <div class="hero-visual" aria-hidden="true"></div>
+
+        <!-- 主内容 -->
         <div class="hero-content">
+          <p class="hero-label">PHROLOVA OFFICE</p>
           <h1 class="brand-title">Phrolova事務所</h1>
           <p class="brand-en">Since 2026</p>
           
-          <p class="hero-motto">弦凝千古寂，剑起满天清</p>
+          <blockquote class="hero-motto">
+            <p>弦凝千古寂，剑起满天清</p>
+          </blockquote>
           
           <p class="hero-tagline">游戏同人创作社团</p>
           
-          <p class="hero-lead">专注于鸣潮系列的二次创作与周边企划。</p>
-          
-          <div class="cta-row">
-            <a href="wuthering.html" class="btn btn-primary">鸣潮专区</a>
-            <a href="others.html" class="btn btn-secondary">更多内容</a>
-          </div>
+          <p class="hero-lead">
+            专注于鸣潮系列的二次创作与周边企划。<br />
+            在声骸共鸣的世界，漂泊者的旅途由此开始。
+          </p>
         </div>
-
-        <!-- 联系方式卡片 -->
-        <aside class="home-contact" aria-label="联系方式">
-          <div class="home-contact-card">
-            <div class="home-contact-header">
-              <span class="home-contact-title">Contact</span>
-              <span class="home-contact-subtitle">联系方式</span>
-            </div>
-            <ul class="home-contact-list">
-              <li>
-                <a href="mailto:blueberrydarkchocolate@gmail.com">
-                  <span class="contact-icon">@</span>
-                  <span>
-                    <strong>Email</strong>
-                    <small>blueberrydarkchocolate@gmail.com</small>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a href="https://x.com/cellinia_0601" target="_blank" rel="noopener noreferrer">
-                  <span class="contact-icon">X</span>
-                  <span>
-                    <strong>X / Twitter</strong>
-                    <small>@cellinia_0601</small>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a href="https://space.bilibili.com/650433966" target="_blank" rel="noopener noreferrer">
-                  <span class="contact-icon">B</span>
-                  <span>
-                    <strong>Bilibili</strong>
-                    <small>650433966</small>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a href="https://github.com/CelliniaTexas0601" target="_blank" rel="noopener noreferrer">
-                  <span class="contact-icon">GH</span>
-                  <span>
-                    <strong>GitHub</strong>
-                    <small>CelliniaTexas0601</small>
-                  </span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </aside>
 
         <!-- 滚动提示 -->
         <div class="scroll-hint" aria-hidden="true">
           <span>Scroll</span>
+          <span class="scroll-hint-arrow"></span>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════════════════════
+           Section 2 — Works / 鸣潮
+           ═══════════════════════════════════════════════════════════════════════ -->
+      <section class="landing-section section-works" id="sectionWorks" aria-labelledby="worksTitle">
+        <div class="section-inner">
+          <!-- 区块头部 -->
+          <header class="landing-header reveal">
+            <p class="landing-header-label">Featured Works</p>
+            <h2 class="landing-header-title" id="worksTitle">WORKS</h2>
+            <p class="landing-header-subtitle">鸣潮</p>
+            <div class="landing-header-line" aria-hidden="true"></div>
+          </header>
+
+          <!-- 主作品展示 -->
+          <div class="works-showcase reveal">
+            <article class="work-feature">
+              <!-- 封面 -->
+              <div class="work-feature-cover">
+                <img src="figure/cover-Blue.png" alt="モーニエの天文学講義 封面" />
+                <div class="work-feature-cover-overlay" aria-hidden="true"></div>
+              </div>
+              
+              <!-- 信息 -->
+              <div class="work-feature-info">
+                <span class="work-feature-tag">Illustration Book</span>
+                <h3 class="work-feature-title">モーニエの天文学講義</h3>
+                <p class="work-feature-subtitle">電波天文学の基礎</p>
+                <p class="work-feature-desc">
+                  一本关于莫妮埃与天文学的插画合集。探索星空与声骸的交汇，
+                  在索拉里斯的天穹下，聆听宇宙的回响。
+                </p>
+                <div class="work-feature-actions">
+                  <a href="wuthering.html" class="btn btn-primary">
+                    <span>查看详情</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- 更多作品入口 -->
+          <div class="works-more reveal">
+            <a href="wuthering.html" class="link-more">
+              <span>探索更多鸣潮作品</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════════════════════
+           Section 3 — Explore / 施工中项目
+           ═══════════════════════════════════════════════════════════════════════ -->
+      <section class="landing-section section-explore" id="sectionExplore" aria-labelledby="exploreTitle">
+        <div class="section-inner">
+          <!-- 区块头部 -->
+          <header class="landing-header reveal">
+            <p class="landing-header-label">More Projects</p>
+            <h2 class="landing-header-title" id="exploreTitle">EXPLORE</h2>
+            <p class="landing-header-subtitle">探索</p>
+            <div class="landing-header-line" aria-hidden="true"></div>
+          </header>
+
+          <!-- 项目卡片网格 -->
+          <div class="explore-grid">
+            <a href="arknights.html" class="explore-card reveal">
+              <div class="explore-card-icon" aria-hidden="true">
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M50 10 L90 50 L50 90 L10 50 Z" stroke="currentColor" stroke-width="1" fill="none"/>
+                  <path d="M50 25 L75 50 L50 75 L25 50 Z" stroke="currentColor" stroke-width="0.5" fill="none" opacity="0.5"/>
+                </svg>
+              </div>
+              <span class="explore-card-status">施工中</span>
+              <h3 class="explore-card-title">ARKNIGHTS</h3>
+              <p class="explore-card-subtitle">明日方舟</p>
+            </a>
+            
+            <a href="endfield.html" class="explore-card reveal">
+              <div class="explore-card-icon" aria-hidden="true">
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="50" cy="50" r="35" stroke="currentColor" stroke-width="1" fill="none"/>
+                  <circle cx="50" cy="50" r="20" stroke="currentColor" stroke-width="0.5" fill="none" opacity="0.5"/>
+                  <circle cx="50" cy="50" r="5" fill="currentColor" opacity="0.3"/>
+                </svg>
+              </div>
+              <span class="explore-card-status">施工中</span>
+              <h3 class="explore-card-title">ENDFIELD</h3>
+              <p class="explore-card-subtitle">明日方舟：终末地</p>
+            </a>
+            
+            <a href="others.html" class="explore-card reveal">
+              <div class="explore-card-icon" aria-hidden="true">
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20 50 L50 20 L80 50 L50 80 Z" stroke="currentColor" stroke-width="1" fill="none"/>
+                  <path d="M35 50 L50 35 L65 50 L50 65 Z" stroke="currentColor" stroke-width="0.5" fill="none" opacity="0.5"/>
+                </svg>
+              </div>
+              <span class="explore-card-status">更多</span>
+              <h3 class="explore-card-title">OTHERS</h3>
+              <p class="explore-card-subtitle">其他</p>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════════════════════
+           Section 4 — Contact
+           ═══════════════════════════════════════════════════════════════════════ -->
+      <section class="landing-section section-contact" id="sectionContact" aria-labelledby="contactTitle">
+        <div class="section-inner">
+          <!-- 区块头部 -->
+          <header class="landing-header reveal">
+            <p class="landing-header-label">Get in Touch</p>
+            <h2 class="landing-header-title" id="contactTitle">CONTACT</h2>
+            <p class="landing-header-subtitle">联系方式</p>
+            <div class="landing-header-line" aria-hidden="true"></div>
+          </header>
+
+          <!-- 联系方式网格 -->
+          <div class="contact-grid reveal">
+            <a href="mailto:blueberrydarkchocolate@gmail.com" class="contact-item">
+              <span class="contact-item-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="2" y="4" width="20" height="16" rx="2"/>
+                  <path d="M22 6L12 13L2 6"/>
+                </svg>
+              </span>
+              <span class="contact-item-info">
+                <strong>Email</strong>
+                <small>blueberrydarkchocolate@gmail.com</small>
+              </span>
+            </a>
+            
+            <a href="https://x.com/cellinia_0601" target="_blank" rel="noopener noreferrer" class="contact-item">
+              <span class="contact-item-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+              </span>
+              <span class="contact-item-info">
+                <strong>X / Twitter</strong>
+                <small>@cellinia_0601</small>
+              </span>
+            </a>
+            
+            <a href="https://space.bilibili.com/650433966" target="_blank" rel="noopener noreferrer" class="contact-item">
+              <span class="contact-item-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17.813 4.653h.854c1.51.054 2.769.578 3.773 1.574 1.004.995 1.524 2.249 1.56 3.76v7.36c-.036 1.51-.556 2.769-1.56 3.773s-2.262 1.524-3.773 1.56H5.333c-1.51-.036-2.769-.556-3.773-1.56S.036 18.858 0 17.347v-7.36c.036-1.511.556-2.765 1.56-3.76 1.004-.996 2.262-1.52 3.773-1.574h.774l-1.174-1.12a1.234 1.234 0 0 1-.373-.906c0-.356.124-.659.373-.907l.027-.027c.267-.249.573-.373.92-.373.347 0 .653.124.92.373L9.653 4.44c.071.071.134.142.187.213h4.267a.836.836 0 0 1 .16-.213l2.853-2.747c.267-.249.573-.373.92-.373.347 0 .662.151.929.4.267.249.391.551.391.907 0 .355-.124.657-.373.906zM5.333 7.24c-.746.018-1.373.276-1.88.773-.506.498-.769 1.13-.786 1.894v7.52c.017.764.28 1.395.786 1.893.507.498 1.134.756 1.88.773h13.334c.746-.017 1.373-.275 1.88-.773.506-.498.769-1.129.786-1.893v-7.52c-.017-.765-.28-1.396-.786-1.894-.507-.497-1.134-.755-1.88-.773zM8 11.107c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c0-.373.129-.689.386-.947.258-.257.574-.386.947-.386zm8 0c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c.017-.391.15-.711.4-.96.249-.249.56-.373.933-.373z"/>
+                </svg>
+              </span>
+              <span class="contact-item-info">
+                <strong>Bilibili</strong>
+                <small>@650433966</small>
+              </span>
+            </a>
+            
+            <a href="https://github.com/CelliniaTexas0601" target="_blank" rel="noopener noreferrer" class="contact-item">
+              <span class="contact-item-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                </svg>
+              </span>
+              <span class="contact-item-info">
+                <strong>GitHub</strong>
+                <small>CelliniaTexas0601</small>
+              </span>
+            </a>
+          </div>
         </div>
       </section>
     </main>
 
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         Footer
+         ═══════════════════════════════════════════════════════════════════════ -->
     <footer class="site-footer">
-      <p><strong>PHROLOVA OFFICE</strong> · All Rights Reserved.</p>
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="footer-logo">PHROLOVA OFFICE</span>
+          <span class="footer-motto">弦凝千古寂，剑起满天清</span>
+        </div>
+        <p class="footer-copy">&copy; 2026 Phrolova事務所. All Rights Reserved.</p>
+      </div>
     </footer>
+
     <script src="js/transition.js"></script>
     <script src="js/main.js"></script>
     <script src="js/cursor.js"></script>
