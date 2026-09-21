@@ -23,7 +23,7 @@
   const mouse = { x: -999, y: -999, tx: -999, ty: -999 };
   const ringPos = { x: -999, y: -999 };
   const points = [];
-  const MAX_POINTS = 22;
+  const MAX_POINTS = 20;
   const ripples = [];
   let width = 0;
   let height = 0;
@@ -47,7 +47,7 @@
     mouse.y = e.clientY;
 
     const last = points[points.length - 1];
-    if (!last || Math.hypot(e.clientX - last.x, e.clientY - last.y) > 3) {
+    if (!last || Math.hypot(e.clientX - last.x, e.clientY - last.y) > 4) {
       points.push({ x: e.clientX, y: e.clientY, life: 1 });
       if (points.length > MAX_POINTS) points.shift();
     }
@@ -67,14 +67,14 @@
   function drawTrail() {
     if (points.length < 2) return;
 
-    // 外层柔光 - 冰蓝
+    // 外层柔光 - 金色
     ctx.beginPath();
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
-    ctx.strokeStyle = "rgba(91, 200, 219, 0.2)";
-    ctx.lineWidth = 6;
-    ctx.shadowBlur = 18;
-    ctx.shadowColor = "rgba(91, 200, 219, 0.35)";
+    ctx.strokeStyle = "rgba(212, 192, 136, 0.15)";
+    ctx.lineWidth = 5;
+    ctx.shadowBlur = 15;
+    ctx.shadowColor = "rgba(212, 192, 136, 0.25)";
 
     for (let i = 0; i < points.length; i++) {
       const p = points[i];
@@ -83,27 +83,27 @@
     }
     ctx.stroke();
 
-    // 主线 - 渐变飘带效果
+    // 主线
     for (let i = 1; i < points.length; i++) {
       const prev = points[i - 1];
       const curr = points[i];
       const t = i / (points.length - 1);
-      const alpha = Math.min(prev.life, curr.life) * (0.25 + t * 0.75);
+      const alpha = Math.min(prev.life, curr.life) * (0.2 + t * 0.8);
 
       ctx.beginPath();
       ctx.lineCap = "round";
-      ctx.strokeStyle = `rgba(138, 216, 232, ${alpha})`;
-      ctx.lineWidth = 1 + t * 1.8;
-      ctx.shadowBlur = 12;
-      ctx.shadowColor = `rgba(91, 200, 219, ${alpha * 0.7})`;
+      ctx.strokeStyle = `rgba(212, 192, 136, ${alpha})`;
+      ctx.lineWidth = 0.8 + t * 1.2;
+      ctx.shadowBlur = 8;
+      ctx.shadowColor = `rgba(212, 192, 136, ${alpha * 0.6})`;
       ctx.moveTo(prev.x, prev.y);
       ctx.lineTo(curr.x, curr.y);
       ctx.stroke();
 
-      // 核心亮线 - 霜白
+      // 核心亮线
       ctx.beginPath();
-      ctx.strokeStyle = `rgba(255, 255, 255, ${alpha * 0.65})`;
-      ctx.lineWidth = 0.4 + t * 0.6;
+      ctx.strokeStyle = `rgba(255, 255, 255, ${alpha * 0.5})`;
+      ctx.lineWidth = 0.3 + t * 0.4;
       ctx.shadowBlur = 0;
       ctx.moveTo(prev.x, prev.y);
       ctx.lineTo(curr.x, curr.y);
@@ -112,8 +112,8 @@
   }
 
   function tick() {
-    ringPos.x += (mouse.tx - ringPos.x) * 0.14;
-    ringPos.y += (mouse.ty - ringPos.y) * 0.14;
+    ringPos.x += (mouse.tx - ringPos.x) * 0.12;
+    ringPos.y += (mouse.ty - ringPos.y) * 0.12;
 
     dot.style.transform = `translate3d(${mouse.x}px, ${mouse.y}px, 0)`;
     ring.style.transform = `translate3d(${ringPos.x}px, ${ringPos.y}px, 0)`;
@@ -122,13 +122,13 @@
     ctx.shadowBlur = 0;
 
     for (let i = points.length - 1; i >= 0; i--) {
-      points[i].life -= 0.035;
+      points[i].life -= 0.04;
       if (points[i].life <= 0) points.splice(i, 1);
     }
 
     drawTrail();
 
-    // 点击涟漪 - 冰蓝波纹
+    // 点击涟漪
     for (let i = ripples.length - 1; i >= 0; i--) {
       const r = ripples[i];
       r.r += 2.5;
@@ -138,10 +138,10 @@
         continue;
       }
       ctx.beginPath();
-      ctx.strokeStyle = `rgba(138, 216, 232, ${r.life * 0.5})`;
-      ctx.lineWidth = 1.2;
-      ctx.shadowBlur = 15;
-      ctx.shadowColor = `rgba(91, 200, 219, ${r.life * 0.35})`;
+      ctx.strokeStyle = `rgba(212, 192, 136, ${r.life * 0.4})`;
+      ctx.lineWidth = 1;
+      ctx.shadowBlur = 12;
+      ctx.shadowColor = `rgba(212, 192, 136, ${r.life * 0.3})`;
       ctx.arc(r.x, r.y, r.r, 0, Math.PI * 2);
       ctx.stroke();
     }
